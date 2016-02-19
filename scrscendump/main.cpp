@@ -347,6 +347,9 @@ int main(int argc, char *argv[])
 	int mode=0;
 	int i, ret;
 
+	if (argc < 2)
+		ProgramUsage();
+
 	for (i = 1; i < argc; i++)
 	{
 		if (_stricmp(argv[i], "-s") == 0)

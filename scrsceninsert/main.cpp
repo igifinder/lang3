@@ -260,21 +260,13 @@ int insert_d00(const char *orig_filename, const char *input_files, const char *o
 	uint32_t *offsets;
 	//int text_counter;
 	int num_sections;
+	int ret;
 
 	origfp = fopen(orig_filename, "rb");
 
 	if (origfp == NULL)
 	{
 		printf("Error opening %s for reading\n", out_filename);
-		return -1;
-	}
-
-	outfp = fopen(out_filename, "wb");
-
-	if (outfp == NULL)
-	{
-		printf("Error opening %s for writing\n", out_filename);
-		fclose(origfp);
 		return -1;
 	}
 
@@ -294,7 +286,6 @@ int insert_d00(const char *orig_filename, const char *input_files, const char *o
 
 	for (i = 0; i < num_sections; i++)
 	{
-		int ret;
 		// Section:
 		// 0x00000000: table1(each entry is 4 bytes), first entry is offset to second table 
 		// 0x????????: data for table1 here
@@ -329,17 +320,42 @@ int insert_d00(const char *orig_filename, const char *input_files, const char *o
 		sprintf(filename, input_files, i+1);
 		ret = insert_section(filename, text_buffer, &section_offset, t1t2size, offsets+(i*2));
 
+		if (ret == -1)
+		{
+			fseek(origfp, offset*2048, SEEK_SET);
+			fread(text_buffer+section_offset, 1, size, origfp);
+
+			offsets[(i*2)] = DoubleWordSwap(section_offset/2048);
+			offsets[(i*2)+1] = DoubleWordSwap(size);
+			section_offset += size;
+
+			if (section_offset & 0x7FF)
+			{
+				section_offset += 0x800;
+				section_offset &= ~0x7FF;
+			}
+
+			ret = 0;
+		}
 		if (ret != 0)
 		{
 			fclose(origfp);
-			fclose(outfp);
 			free(text_buffer);
 			return ret;
 		}
 	}
 
-	fwrite((void *)text_buffer, 1, section_offset, outfp);
-	fflush(outfp);
+	if ((outfp = fopen(out_filename, "wb")) == NULL)
+	{
+		printf("Error opening %s for writing\n", out_filename);
+		ret = -1;
+	}
+	else
+	{
+		fwrite((void *)text_buffer, 1, section_offset, outfp);
+		fflush(outfp);
+		ret = 0;
+	}
 
 	if (origfp)
 		fclose(origfp);
@@ -347,7 +363,7 @@ int insert_d00(const char *orig_filename, const char *input_files, const char *o
 		fclose(outfp);
 	if (text_buffer)
 		free(text_buffer);
-	return 0;
+	return ret;
 }
 
 int insert_plot(const char *input_filename, const char *out_filename)
@@ -386,6 +402,9 @@ int main(int argc, char *argv[])
 	int mode=0;
 	int ret;
 	int i;
+
+	if (argc < 2)
+		ProgramUsage();
 
 	for (i = 1; i < argc; i++)
 	{

@@ -136,6 +136,9 @@ int main(int argc, char *argv[])
 	char *tbl_filename, *input_filename, *out_dir;
 	int mode,i,ret;
 
+	if (argc < 2)
+		ProgramUsage();
+
 	for (i = 1; i < argc; i++)
 	{
 		if (_stricmp(argv[i], "-f") == 0)

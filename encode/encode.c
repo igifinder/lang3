@@ -39,6 +39,7 @@ int encode_fntsys(const char *orig_filename, const char *input_files, uint32_t a
 	int file_count=0;
 	uint32_t *orig_offsets;
 	uint32_t orig_size;
+	int ret;
 
 	fp = fopen(orig_filename, "rb");
 
@@ -62,20 +63,10 @@ int encode_fntsys(const char *orig_filename, const char *input_files, uint32_t a
 	fread((void *)orig_buf, 1, orig_size, fp);
 	fclose(fp);
 
-	outfp = fopen(out_filename, "wb");
-
-	if (outfp == NULL)
-	{
-		printf("Error opening %s for writing\n", out_filename);
-		free(orig_buf);
-		return -1;
-	}
-
 	if ((text_buffer = malloc(0x100000)) == NULL)
 	{
 		printf("Error allocating memory\n");
 		free(orig_buf);
-		fclose(outfp);
 		return -2;
 	}
 
@@ -161,7 +152,6 @@ int encode_fntsys(const char *orig_filename, const char *input_files, uint32_t a
 								{
 									printf("Error in %s on line %d parsing script file: Missing '>'\n", filename, line_counter);
 									free(orig_buf);
-									fclose(outfp);
 									free(text_buffer);
 									return -3;
 								}
@@ -244,14 +234,24 @@ int encode_fntsys(const char *orig_filename, const char *input_files, uint32_t a
 		}
 	}
 
-	fwrite((void *)text_buffer, 1, section_offset, outfp);
-	free(orig_buf);
-	fflush(outfp);
-	if (outfp)
+	if ((outfp = fopen(out_filename, "wb")) == NULL)
+	{
+		printf("Error opening %s for writing\n", out_filename);
+		free(orig_buf);
+		ret = -1;
+	}
+	else
+	{
+		fwrite((void *)text_buffer, 1, section_offset, outfp);
+		free(orig_buf);
+		fflush(outfp);
 		fclose(outfp);
+		ret = 0;
+	}
+
 	if (text_buffer)
 		free(text_buffer);
-	return 0;
+	return ret;
 }
 
 int main(int argc, char *argv[])
@@ -261,6 +261,9 @@ int main(int argc, char *argv[])
 	int done = 0;
 	unsigned short temp_int=0;
 	int mode=0, i, ret;
+
+	if (argc < 2)
+		ProgramUsage();
 
 	for (i = 1; i < argc; i++)
 	{
