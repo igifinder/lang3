@@ -115,12 +115,20 @@ int insert_section(const char *filename, unsigned char *text_buffer, uint32_t *s
 			for (;;)
 			{
 				char *p = strrchr(text, '<');
+				if (p == NULL)
+				{
+					printf("Error in %s on line %d parsing script file: Missing or invalid end tag\n", filename, line_counter);
+					return -3;
+				}
 				sscanf(p+2, "%[^>]>", text2);
 				if (strcmp(text2, "FFFE") != 0 && strcmp(text2, "FFFF") != 0)
 				{
 					// Fetch another line
 					if (fscanf(fp, "%[^\n]\n", text2) == 1)
+					{
 						strcat(text, text2);
+						line_counter++;
+					}
 				}
 				else 
 					break;
@@ -135,9 +143,6 @@ int insert_section(const char *filename, unsigned char *text_buffer, uint32_t *s
 						if (sscanf(text+j+2, "%[^>]>", text2) != 1)
 						{
 							printf("Error in %s on line %d parsing script file: Missing '>'\n", filename, line_counter);
-							//fclose(origfp);
-							//fclose(outfp);
-							//free(text_buffer);
 							return -3;
 						}
 
@@ -158,7 +163,14 @@ int insert_section(const char *filename, unsigned char *text_buffer, uint32_t *s
 							size = 0;
 						}
 
-						j += strchr(text+j, '>')-(text+j)+1;
+						char *p = strchr(text+j, '>');
+						if (p == NULL)
+						{
+							printf("Error in %s on line %d parsing script file: Missing '>'\n", filename, line_counter);
+							return -3;
+						}
+
+						j += p-(text+j)+1;
 					}
 					else if (text[j] == '[' && text[j+1] == 'd' &&
 						memcmp(text+j, "[diehardt's name]", 17) == 0)
