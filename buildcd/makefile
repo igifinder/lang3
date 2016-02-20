@@ -38,10 +38,10 @@ files/A0LANG.BIN: ../satcode/patch.bin
 	satcode-insert $< $(@D)
 
 files/LANG/FNT_SYS.BIN: ../scripts/jp/lang3.tbl $(FNTSYSSRC)
-	encode -f $< files\lang\fnt_sys.bin ..\scripts\en\fntsys\fntsys%dE.txt $@
+	encode -f $< files\lang\fnt_sys.bin ..\scripts\en\fntsys%dE.txt $@
 
 files/LANG/SCEN/D00.DAT: ../scripts/jp/lang3.tbl $(SCENSRC)
-	scrsceninsert -s $< files\lang\scen\d00.dat ..\scripts\en\scen\scen%03dE.txt $@
+	scrsceninsert -s $< files\lang\scen\d00.dat ..\scripts\en\scen%03dE.txt $@
 
 files/LANG/FONT.BIN: ../scripts/en/font.bin
 	$(COPYCMD) $< $@
