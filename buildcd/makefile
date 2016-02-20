@@ -7,8 +7,8 @@ COPYCMD = cp -f
 RMCMD = rm -f
  
 OBJ = IP.BIN files/A0LANG.BIN files/LANG/FNT_SYS.BIN files/LANG/SCEN/D00.DAT files/LANG/FONT.BIN
-FNTSYSSRC = $(wildcard ../scripts/en/fntsys/fntsys*.txt)
-SCENSRC = $(wildcard ../scripts/en/scen/scen*.txt)
+FNTSYSSRC = $(wildcard ../scripts/en/fntsys*.txt)
+SCENSRC = $(wildcard ../scripts/en/scen*.txt)
 
 #PPF = lang3v1.ppf lang3v2.ppf
 PPF = lang3v1.xdelta lang3v2.xdelta
