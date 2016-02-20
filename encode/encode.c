@@ -232,6 +232,25 @@ int encode_fntsys(const char *orig_filename, const char *input_files, uint32_t a
 			section_size = 0;
 			fclose(fp);
 		}
+		else
+		{
+			// Use Original Code
+			uint32_t start = DoubleWordSwap(orig_offsets[toi[i].tbl_index])-addr;
+			uint32_t mid = DoubleWordSwap(orig_offsets[toi[i].text_index])-addr;
+			uint32_t end;
+					
+		   if (toi[i].text_index+1 < (DoubleWordSwap(orig_offsets[0])-addr) / 0x4)
+				end = DoubleWordSwap(orig_offsets[toi[i].text_index+1])-addr;
+			else
+				end = orig_size;
+
+			section_size = end-start;
+			memcpy(text_buffer+section_offset, orig_buf+start, section_size);
+			offsets[toi[i].tbl_index] = DoubleWordSwap(addr+section_offset);
+			offsets[toi[i].text_index] = DoubleWordSwap(addr+section_offset+mid-start);
+			section_offset += section_size;
+			section_size = 0;
+		}
 	}
 
 	if ((outfp = fopen(out_filename, "wb")) == NULL)
