@@ -1,3 +1,7 @@
+Langrisser III dumper [0x15a2 to 0x21ac]
+
+Cyber Warrior X
+
 ファイター<$FFFF>
 ファイター<$FFFF>
 ファイター<$FFFF>
@@ -232,6 +236,6 @@
 バハムート<$FFFF>
 ファフニール<$FFFF>
 ゲルギャザー<$FFFF>
-一般入<$FFFF>
-一般入<$FFFF>
-一般入<$FFFF>
+一般人<$FFFF>
+一般人<$FFFF>
+一般人<$FFFF>

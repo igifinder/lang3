@@ -1,3 +1,7 @@
+Langrisser III dumper [0x2d96 to 0x306c]
+
+Cyber Warrior X
+
 ファイアー<$FFFF>
 ファイアーボール<$FFFF>
 フリーズ<$FFFF>

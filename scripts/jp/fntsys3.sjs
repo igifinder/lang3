@@ -1,3 +1,7 @@
+Langrisser III dumper [0x11ea to 0x13c8]
+
+Cyber Warrior X
+
 上がった！<$FFFF>
 の魔法を覚えた！<$FFFF>
 のスキルを覚えた！<$FFFF>

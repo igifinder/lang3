@@ -1,3 +1,7 @@
+Langrisser III dumper [0x32ae to 0x3b80]
+
+Cyber Warrior X
+
 なし<$FFFF>
 メサイヤンソード<$FFFF>
 ロングソード<$FFFF>
@@ -141,7 +145,7 @@
 アンブローシア<$FFFF>
 武勇の種<$FFFF>
 気力の葉<$FFFF>
-**知恵の実<$FFFF>
+知恵の実<$FFFF>
 力の実<$FFFF>
 体力の実<$FFFF>
 まもりの実<$FFFF>

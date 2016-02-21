@@ -1,9 +1,13 @@
+Langrisser III dumper [0xdb0 to 0x11ac]
+
+Cyber Warrior X
+
 　本体ＲＡＭの<$FFFF>
 　カートリッジＲＡＭの<$FFFF>
 　準備が整っていません！<$FFFF>
 全ての記憶を消去しますか？<$FFFF>
 記録の消去が終了しました<$FFFF>
-記録の消去に先敗しました<$FFFF>
+記録の消去に失敗しました<$FFFF>
 セガサターン本体の保存データ<$FFFF>
 管理画面で、すべての記録を<$FFFF>
 消してください<$FFFF>

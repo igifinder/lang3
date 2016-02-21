@@ -1,3 +1,7 @@
+Langrisser III dumper [0x2c6e to 0x2d24]
+
+Cyber Warrior X
+
 •à•º<$FFFF>
 ‘m—µ<$FFFF>
 ‘m—µ<$FFFF>

@@ -1,3 +1,7 @@
+Langrisser III dumper [0x2b20 to 0x2c30]
+
+Cyber Warrior X
+
 ハイエルフ<$FFFF>
 ジン<$FFFF>
 イフリート<$FFFF>
