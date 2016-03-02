@@ -1,8 +1,8 @@
 PATCH_NAME = "Langrisser 3 Patch v0.?"
 LANG3_BIN_V1 = ../cd/LANGRISSER_3.BIN
 LANG3_CUE_V1 = ../cd/LANGRISSER_3.CUE
-LANG3_BIN_V2 = ../cd/ws-lg_tribute_d2.bin
-LANG3_CUE_V2 = ../cd/ws-lg_tribute_d2.cue 
+LANG3_BIN_V101 = ../cd/ws-lg_tribute_d2.bin
+LANG3_CUE_V101 = ../cd/ws-lg_tribute_d2.cue 
 COPYCMD = cp -f
 RMCMD = rm -f
  
@@ -10,8 +10,8 @@ OBJ = IP.BIN files/A0LANG.BIN files/LANG/FNT_SYS.BIN files/LANG/SCEN/D00.DAT fil
 FNTSYSSRC = $(wildcard ../scripts/en/fntsys*.txt)
 SCENSRC = $(wildcard ../scripts/en/scen*.txt)
 
-#PPF = lang3v1.ppf lang3v2.ppf
-PPF = lang3v1.xdelta lang3v2.xdelta
+#PPF = lang3v1.ppf lang3v101.ppf
+PPF = lang3v1.xdelta lang3v101.xdelta
 EXE = LANGRISSER_3.DSK
 
 all : $(PPF)
@@ -19,14 +19,14 @@ all : $(PPF)
 lang3v1.ppf : $(EXE)
 	makeppf3 c -u -i 0 -d $(PATCH_NAME) $(LANG3_BIN_V1) $< $@
 
-lang3v2.ppf : $(EXE)
+lang3v101.ppf : $(EXE)
 	makeppf3 c -u -i 0 -d $(PATCH_NAME) $(LANG3_BIN_V2) $< $@
 
 lang3v1.xdelta : $(EXE)
 	xdelta -e -f -s $(LANG3_BIN_V1) $< $@
 
-lang3v2.xdelta : $(EXE)
-	xdelta -e -f -s $(LANG3_BIN_V2) $< $@
+lang3v101.xdelta : $(EXE)
+	xdelta -e -f -s $(LANG3_BIN_V101) $< $@
 
 $(EXE) : $(OBJ)
 	vcdbuild disc -b 
