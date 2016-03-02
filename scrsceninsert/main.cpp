@@ -94,7 +94,8 @@ int insert_section(const char *filename, unsigned char *text_buffer, uint32_t *s
 			line_counter++;
 			if (strstr(text, "Cyber Warrior X"))
 			{
-				fscanf(fp, "%[^\n]\n", text);
+				if (fscanf(fp, "%[^\n]\n", text) == 1)
+					line_counter++;
 				break;
 			}
 		}
@@ -117,7 +118,7 @@ int insert_section(const char *filename, unsigned char *text_buffer, uint32_t *s
 				char *p = strrchr(text, '<');
 				if (p == NULL)
 				{
-					printf("Error in %s on line %d parsing script file: Missing or invalid end tag\n", filename, line_counter);
+					printf("Error in %s on line %d parsing script file: Missing or invalid end tag. \"%s\"\n", filename, line_counter, text);
 					return -3;
 				}
 				sscanf(p+2, "%[^>]>", text2);
@@ -263,7 +264,7 @@ int insert_section(const char *filename, unsigned char *text_buffer, uint32_t *s
 int insert_d00(const char *orig_filename, const char *input_files, const char *out_filename)
 {
 	char filename[_MAX_PATH];
-	int i,j,k;
+	int i;
 	FILE *origfp, *outfp;
 	uint32_t section_offset=0x800;
 	unsigned char *text_buffer;
@@ -286,7 +287,6 @@ int insert_d00(const char *orig_filename, const char *input_files, const char *o
 	{
 		printf("Error allocating memory\n");
 		fclose(origfp);
-		fclose(outfp);
 		return -2;
 	}
 
