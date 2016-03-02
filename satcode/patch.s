@@ -1483,7 +1483,7 @@ loc_607F1CC:
 		mov.l	off_607F314, r2	! off_6088620
 		mov	r1, r9
 		add	r2, r9
-		shll2	r3
+		shll2	r3              ! calculate offset to current text pointer
 		mov.l	off_607F318, r1	! unk_6088000
 		mov	r3, r8
 		add	r1, r8
@@ -1491,13 +1491,14 @@ loc_607F1CC:
 		shll2	r2
 		add	r9, r2
 		mov.l	@r2, r1
-		add	#2, r1
+		add	#2, r1          ! move pointer to offset +2 of start of 0xF600XXXX
 		mov.l	r1, @r2
 		mov.l	@r8, r3
-		mov	r3, r0
-		shll2	r0
-		mov.l	@(r0,r9), r1
-		mov.w	@r1, r4
+		mov.b	@r1+, r4 ! fetch two bytes instead of one word in order to handle misaligned reads
+		shll8	r4
+		mov.b	@r1, r2
+		extu.b	r2, r2
+		or	r2, r4
 		mov.l	dword_607F31C, r2 ! 0xFFFC
 		extu.w	r4, r1
 		cmp/eq	r2, r1
