@@ -35,37 +35,42 @@ file1_func3_patch_size:    .long sub_6017748_end-sub_6017748
 
 ! File 2
 filename2:                 padded_string "LANG\\PROG_3.BIN", 260 ! File to patch 
-file2_num_functions:       .long 6 ! Number of patches
+file2_num_functions:       .long 7 ! Number of patches
 ! Patch 1
-file2_func1_offset:        .long 0x2A564 ! Offset in File to Patch
-file2_func1_max_size:      .long 0x1E4 ! Function Size
-file2_func1_patch_offset:  .long sub_607CD64 ! New Function code
-file2_func1_patch_size:    .long off_607CF44-sub_607CD64+4
+file2_func1_offset:        .long 0x29778 ! Offset in File to Patch
+file2_func1_max_size:      .long 0x4C4 ! Function Size
+file2_func1_patch_offset:  .long sub_607BF78 ! New Function code
+file2_func1_patch_size:    .long off_607C438-sub_607BF78+4
 ! Patch 2
-file2_func2_offset:        .long 0x2A78C ! Offset in File to Patch
-file2_func2_max_size:      .long 0x138 ! Function Size
-file2_func2_patch_offset:  .long sub_607CF8C ! New Function code
-file2_func2_patch_size:    .long off_607D0C0-sub_607CF8C+4
+file2_func2_offset:        .long 0x2A564 ! Offset in File to Patch
+file2_func2_max_size:      .long 0x1E4 ! Function Size
+file2_func2_patch_offset:  .long sub_607CD64 ! New Function code
+file2_func2_patch_size:    .long off_607CF44-sub_607CD64+4
 ! Patch 3
-file2_func3_offset:        .long 0x2A8C4 ! Offset in File to Patch
-file2_func3_max_size:      .long 0xB0 ! Function Size
-file2_func3_patch_offset:  .long sub_607D0C4 ! New Function code
-file2_func3_patch_size:    .long dword_607D170-sub_607D0C4+4
+file2_func3_offset:        .long 0x2A78C ! Offset in File to Patch
+file2_func3_max_size:      .long 0x138 ! Function Size
+file2_func3_patch_offset:  .long sub_607CF8C ! New Function code
+file2_func3_patch_size:    .long off_607D0C0-sub_607CF8C+4
 ! Patch 4
-file2_func4_offset:        .long 0x2AA30 ! Offset in File to Patch
-file2_func4_max_size:      .long 0x2C0 ! Function Size
-file2_func4_patch_offset:  .long sub_607D230 ! New Function code
-file2_func4_patch_size:    .long off_607D4E8-sub_607D230+4
+file2_func4_offset:        .long 0x2A8C4 ! Offset in File to Patch
+file2_func4_max_size:      .long 0xB0 ! Function Size
+file2_func4_patch_offset:  .long sub_607D0C4 ! New Function code
+file2_func4_patch_size:    .long dword_607D170-sub_607D0C4+4
 ! Patch 5
-file2_func5_offset:        .long 0x2C710 ! Offset in File to Patch
-file2_func5_max_size:      .long 0x430 ! Function Size
-file2_func5_patch_offset:  .long sub_607EF10 ! New Function code
-file2_func5_patch_size:    .long off_607F33C-sub_607EF10+4
+file2_func5_offset:        .long 0x2AA30 ! Offset in File to Patch
+file2_func5_max_size:      .long 0x2C0 ! Function Size
+file2_func5_patch_offset:  .long sub_607D230 ! New Function code
+file2_func5_patch_size:    .long off_607D4E8-sub_607D230+4
 ! Patch 6
-file2_func6_offset:        .long 0x2CB70 ! Offset in File to Patch
-file2_func6_max_size:      .long 0x148 ! Function Size
-file2_func6_patch_offset:  .long sub_607F370 ! New Function code
-file2_func6_patch_size:    .long off_607F4B4-sub_607F370+4
+file2_func6_offset:        .long 0x2C710 ! Offset in File to Patch
+file2_func6_max_size:      .long 0x430 ! Function Size
+file2_func6_patch_offset:  .long sub_607EF10 ! New Function code
+file2_func6_patch_size:    .long off_607F33C-sub_607EF10+4
+! Patch 7
+file2_func7_offset:        .long 0x2CB70 ! Offset in File to Patch
+file2_func7_max_size:      .long 0x148 ! Function Size
+file2_func7_patch_offset:  .long sub_607F370 ! New Function code
+file2_func7_patch_size:    .long off_607F4B4-sub_607F370+4
 
 ! File 3
 filename3:                 padded_string "LANG\\PROG_4.BIN", 260 ! File to patch 
@@ -471,6 +476,687 @@ loc_6017762:
 		rts
 		mov.l	@r15+, r8
 sub_6017748_end:
+
+.align 2
+sub_607BF78:
+		mov.l	r8, @-r15
+		mov.l	r9, @-r15
+		mov.l	r10, @-r15
+		mov.l	r11, @-r15
+		mov.l	r12, @-r15
+		mov.l	r13, @-r15
+		mov.l	r14, @-r15
+		sts.l	pr, @-r15
+		add	#-4, r15
+		mov	r15, r14
+		mov	r4, r8
+		mov.l	off_607C1A0, r1	! unk_6087CCC
+		mov	#2, r2
+		mov.b	r2, @r1
+		add	#1, r1
+		mov.b	r2, @r1
+		mov.l	off_607C1A4, r1	! unk_6087E79
+		mov.b	@r1, r1
+		extu.b	r1, r2
+		mov	#9, r1
+		cmp/hi	r1, r2
+		bf/s	loc_607BFAA
+		mov	r5, r9
+		bra	loc_607C3B8
+		or	r0, r0
+
+loc_607BFAA:
+		mov	r2, r1
+		add	r1, r1
+		mova	off_607BFB8, r0	! (loc_607C040 - off_607BFB8)
+		mov.w	@(r0,r1), r1
+		add	r1, r0
+		jmp	@r0
+		nop
+
+off_607BFB8:	
+		.word loc_607C040 - off_607BFB8
+		.word loc_607C1E4 - off_607BFB8
+		.word loc_607BFCC - off_607BFB8
+		.word loc_607BFCC - off_607BFB8
+		.word loc_607C008 - off_607BFB8
+		.word loc_607C02E - off_607BFB8
+		.word loc_607C22C - off_607BFB8
+		.word loc_607C2E4 - off_607BFB8
+		.word loc_607C38C - off_607BFB8
+		.word loc_607C39A - off_607BFB8
+
+loc_607BFCC:
+		mov.l	off_607C1A8, r3	! unk_60882C8
+		mov	r8, r1
+		mov	r3, r2
+		mov.l	@r1+, r0
+		add	#4, r2
+		mov.l	r0, @r3
+		mov.l	@r1+, r0
+		mov.l	r0, @r2
+		mov.l	@r1, r1
+		mov.l	r1, @(4,r2)
+		mov	r8, r1
+		add	#2, r1
+		mov.b	@r1, r1
+		extu.b	r1, r1
+		mov	r1, r0
+		cmp/eq	#1, r0
+		bf/s	loc_607BFF8
+		mov	#0, r13
+		mov	r3, r2
+		add	#2, r2
+		bra	loc_607BFFE
+		mov	#1, r1
+
+loc_607BFF8:
+		mov	r3, r2
+		add	#2, r2
+		mov	#0, r1
+
+loc_607BFFE:
+		mov.b	r1, @r2
+		mov.l	off_607C1A4, r2	! unk_6087E79
+		mov	#4, r1
+		bra	loc_607C3B8
+		mov.b	r1, @r2
+
+loc_607C008:
+		mov	#0, r13
+		mov.l	off_607C1A0, r1	! unk_6087CCC
+		mov	#1, r2
+		mov.b	r2, @r1
+		add	#1, r1
+		mov.b	r2, @r1
+		mov.l	off_607C1A8, r4	! unk_60882C8
+		mov.l	off_607C1AC, r0	! sub_607DB10
+		jsr	@r0 ! sub_607DB10
+		mov	#1, r5
+		extu.w	r0, r0
+		cmp/eq	#2, r0
+		bt/s	loc_607C028
+		mov	#5, r1
+		bra	loc_607C3B8
+		or	r0, r0
+
+loc_607C028:
+		mov.l	off_607C1A4, r2	! unk_6087E79
+		bra	loc_607C3B8
+		mov.b	r1, @r2
+
+loc_607C02E:
+		mov	#0, r13
+		mov.l	off_607C1A8, r4	! unk_60882C8
+		mov.l	off_607C1AC, r0	! sub_607DB10
+		jsr	@r0 ! sub_607DB10
+		mov	#0, r5
+		mov.l	off_607C1A4, r2	! unk_6087E79
+		mov	#0, r1
+		bra	loc_607C3B8
+		mov.b	r1, @r2
+
+loc_607C040:
+		mov.l	off_607C1A8, r9	! unk_60882C8
+		mov.l	off_607C1AC, r0	! sub_607DB10
+		mov	#0, r5
+		jsr	@r0 ! sub_607DB10
+		mov	r9, r4
+		mov.b	@r8, r1
+		extu.b	r1, r2
+		tst	r2, r2
+		bt/s	loc_607C05C
+		mov	#0, r13
+		mov	#5, r1
+		cmp/hi	r1, r2
+		bf/s	loc_607C06A
+		mov	r2, r0
+
+loc_607C05C:
+		mov.l	off_607C1A4, r2	! unk_6087E79
+		mov	#9, r1
+		mov.b	r1, @r2
+		mov.l	off_607C1B0, r2	! unk_60882D4
+		mov	#0xFFFFFFFF, r1
+		bra	loc_607C1E4
+		mov.b	r1, @r2
+
+loc_607C06A:
+		cmp/eq	#1, r0
+		bf/s	loc_607C0A2
+		mov	r9, r1
+		add	#4, r1
+		mov.w	@r1, r3
+		movt	r2
+		mov	r3, r1
+		add	#2, r1
+		extu.w	r1, r1
+		cmp/hi	r2, r1
+		bf/s	loc_607C08A
+		extu.w	r3, r1
+		!mov.l	dword_607C1B4, r2 ! 0xFFFD
+		mov	#0xFD, r2 ! 0xFFFD
+        extu.w r2, r2
+		cmp/eq	r2, r1
+		bf/s	loc_607C090
+		mov	#3, r1
+
+loc_607C08A:
+		mov.l	off_607C1B8, r2	! unk_6087ECE
+		bra	loc_607C092
+		mov	#1, r1
+
+loc_607C090:
+		mov.l	off_607C1B8, r2	! unk_6087ECE
+
+loc_607C092:
+		mov.b	r1, @r2
+		mov.l	off_607C1BC, r1	! sub_6018724
+		jsr	@r1 ! sub_6018724
+		mov	#0, r13
+		mov.l	off_607C1A4, r2	! unk_6087E79
+		mov	#1, r1
+		bra	loc_607C3B8
+		mov.b	r1, @r2
+
+loc_607C0A2:
+		mov	r2, r0
+		cmp/eq	#2, r0
+		bf/s	loc_607C0BA
+		cmp/eq	#3, r0
+		mov.l	off_607C1C0, r2	! unk_6087E90
+		mov	r2, r3
+		add	#1, r3
+		mov	#2, r1
+		mov.b	r1, @r3
+		add	#5, r2
+		bra	loc_607C124
+		mov	#6, r1
+
+loc_607C0BA:
+		bf/s	loc_607C0D4
+		mov	r2, r0
+		mov.l	off_607C1C0, r2	! unk_6087E90
+		mov	r2, r3
+		add	#1, r3
+		mov	#0, r1
+		mov.b	r1, @r3
+		mov	r2, r3
+		add	#5, r3
+		mov	#4, r1
+		mov.b	r1, @r3
+		bra	loc_607C122
+		add	#9, r2
+
+loc_607C0D4:
+		cmp/eq	#4, r0
+		bf/s	loc_607C0FA
+		mov	r2, r0
+		mov.l	off_607C1C0, r2	! unk_6087E90
+		mov	r2, r3
+		add	#1, r3
+		mov	#0, r1
+		mov.b	r1, @r3
+		mov	r2, r3
+		add	#5, r3
+		mov	#2, r1
+		mov.b	r1, @r3
+		mov	r2, r3
+		add	#9, r3
+		mov	#4, r1
+		mov.b	r1, @r3
+		add	#0xD, r2
+		bra	loc_607C124
+		mov	#6, r1
+
+loc_607C0FA:
+		cmp/eq	#5, r0
+		bf/s	loc_607C126
+		mov	#0, r1
+		mov.l	off_607C1C0, r2	! unk_6087E90
+		mov	r2, r3
+		add	#1, r3
+		mov.b	r1, @r3
+		mov	r2, r3
+		add	#5, r3
+		mov	#2, r1
+		mov.b	r1, @r3
+		mov	r2, r3
+		add	#9, r3
+		mov	#4, r1
+		mov.b	r1, @r3
+		mov	r2, r3
+		add	#0xD, r3
+		mov	#6, r1
+		mov.b	r1, @r3
+		add	#0x11, r2
+
+loc_607C122:
+		mov	#8, r1
+
+loc_607C124:
+		mov.b	r1, @r2
+
+loc_607C126:
+		mov.b	@r8, r1
+		mov.l	off_607C1C4, r2	! unk_6087EBD
+		mov.b	r1, @r2
+		mov.l	off_607C1C8, r1	! unk_60887C8
+		mov.b	@r1, r1
+		extu.b	r1, r0
+		cmp/eq	#1, r0
+		bf/s	loc_607C13E
+		mov	#3, r1
+		mov.l	off_607C1CC, r2	! unk_6087E80
+		bra	loc_607C170
+		mov.b	r1, @r2
+
+loc_607C13E:
+		mov.l	off_607C1D0, r3	! unk_60882CC
+		mov.w	@r3, r1
+		!mov.l	dword_607C1D4, r2 ! 0xFFFF
+		mov	#0xFF, r2 ! 0xFFFF
+		extu.w	r2, r2
+		cmp/eq	r2, r1
+		bf/s	loc_607C152
+		mov	r3, r1
+		mov.l	off_607C1CC, r2	! unk_6087E80
+		bra	loc_607C16E
+		mov	#6, r1
+
+loc_607C152:
+		add	#-2, r1
+		mov.b	@r1, r1
+		extu.b	r1, r1
+		tst	r1, r1
+		bt/s	loc_607C16A
+		mov	r1, r0
+		cmp/eq	#1, r0
+		bf/s	loc_607C16A
+		mov	#1, r1
+		mov.l	off_607C1CC, r2	! unk_6087E80
+		bra	loc_607C170
+		mov.b	r1, @r2
+
+loc_607C16A:
+		mov.l	off_607C1CC, r2	! unk_6087E80
+		mov	#0xC, r1
+
+loc_607C16E:
+		mov.b	r1, @r2
+
+loc_607C170:
+		mov.l	off_607C1D8, r1	! unk_60882CA
+		mov.b	@r1, r1
+		extu.b	r1, r1
+		tst	r1, r1
+		bf/s	loc_607C182
+		mov	r1, r0
+		mov.l	off_607C1DC, r2	! unk_6087E81
+		bra	loc_607C18A
+		mov	#2, r1
+
+loc_607C182:
+		cmp/eq	#1, r0
+		bf/s	loc_607C18C
+		mov	#0xF, r1
+		mov.l	off_607C1DC, r2	! unk_6087E81
+
+loc_607C18A:
+		mov.b	r1, @r2
+
+loc_607C18C:
+		mov.l	off_607C1A4, r2	! unk_6087E79
+		mov	#6, r1
+		mov.b	r1, @r2
+		mov.l	off_607C1E0, r1	! unk_6087E7A
+		mov	#0, r2
+		mov.b	r2, @r1
+		mov.l	off_607C1B0, r1	! unk_60882D4
+		bra	loc_607C3B8
+		mov.b	r2, @r1
+.align 2
+off_607C1A0:	.long 0x06087CCC
+off_607C1A4:	.long 0x06087E79
+off_607C1A8:	.long 0x060882C8
+off_607C1AC:	.long 0x0607DB10
+off_607C1B0:	.long 0x060882D4
+!dword_607C1B4:	.long 0xFFFD
+off_607C1B8:	.long 0x06087ECE
+off_607C1BC:	.long 0x06018724
+off_607C1C0:	.long 0x06087E90
+off_607C1C4:	.long 0x06087EBD
+off_607C1C8:	.long 0x060887C8
+off_607C1CC:	.long 0x06087E80
+off_607C1D0:	.long 0x060882CC
+!dword_607C1D4:	.long 0xFFFF
+off_607C1D8:	.long 0x060882CA
+off_607C1DC:	.long 0x06087E81
+off_607C1E0:	.long 0x06087E7A
+
+loc_607C1E4:
+		mov	#0, r13
+		mov.l	off_607C3D8, r8	! unk_60882C8
+		mov.l	off_607C3DC, r0	! sub_607DB10
+		mov	#0, r5
+		jsr	@r0 ! sub_607DB10
+		mov	r8, r4
+		add	#2, r8
+		mov.l	off_607C3E0, r1	! unk_6087ECE
+		mov.l	off_607C3E4, r0	! sub_601874C
+		mov.b	@r8, r4
+		mov	r14, r5
+		mov.b	@r1, r1
+		extu.b	r4, r4
+		extu.b	r1, r1
+		jsr	@r0 ! sub_601874C
+		add	r1, r4
+		cmp/eq	#1, r0
+		bt/s	loc_607C20E
+		mov.b	@r14, r3
+		bra	loc_607C3B8
+		or	r0, r0
+
+loc_607C20E:
+		extu.b	r3, r1
+		tst	r1, r1
+		bf/s	loc_607C21E
+		mov	r3, r1
+		mov.l	off_607C3E8, r2	! unk_6087E79
+		mov	#1, r1
+		bra	loc_607C3B8
+		mov.b	r1, @r2
+
+loc_607C21E:
+		mov.l	off_607C3EC, r2	! unk_60882D4
+		add	#-1, r1
+		mov.b	r1, @r2
+		mov.l	off_607C3E8, r2	! unk_6087E79
+		mov	#9, r1
+		bra	loc_607C3B8
+		mov.b	r1, @r2
+
+loc_607C22C:
+		mov	#0, r13
+		mov.l	off_607C3F0, r10 ! unk_60882CA
+		mov.b	@r10, r4
+		mov.l	off_607C3F4, r1	! sub_607CCB8
+		jsr	@r1 ! sub_607CCB8
+		extu.b	r4, r4
+		mov.l	@(8,r8), r8
+		mov.l	off_607C3F8, r0	! sub_6016D38
+		jsr	@r0 ! sub_6016D38
+		mov	r8, r4
+		mov	r0, r8
+		mov	r10, r3
+		add	#-2, r3
+		mov.b	@r3, r1
+		mov	#0, r2
+		extu.b	r1, r1
+		cmp/hs	r1, r2
+		bt/s	loc_607C2CE
+		mov	#0, r9
+		mov	r3, r11
+		mov	r10, r12
+		mov.l	off_607C3FC, r10 ! sub_607D174
+
+loc_607C258:
+		extu.w	r9, r0
+		mov.b	@r11, r1
+		mov.l	off_607C400, r6	! unk_6087ECC
+		mov.b	@r12, r4
+		extu.b	r1, r1
+		mov	r1, r2
+		shll2	r2
+		add	r1, r2
+		mov.l	off_607C404, r1	! unk_6087E9A
+		add	r1, r2
+		mov.b	@(r0,r2), r5
+		extu.b	r4, r4
+		jsr	@r10 ! sub_607D174
+		extu.b	r5, r5
+		bra	loc_607C2B2
+		!mov.w	@r8, r3
+        mov.b	@r8, r3
+
+loc_607C278:
+		!mov.l	dword_607C408, r1 ! 0xF600
+		mov	#0xF6, r1
+        extu.b r1, r1
+		cmp/eq	r1, r2
+		bf/s	loc_607C28E
+		extu.w	r9, r0
+		add	#2, r8
+		!mov.w	@r8, r4
+		mov.b	@r8+, r4
+        shll8	r4
+		mov.b	@r8, r0
+		extu.b	r0, r0
+        or      r0, r4
+		mov.l	off_607C40C, r0	! sub_607AB14
+		jsr	@r0 ! sub_607AB14
+		extu.w	r4, r4
+		mov	r0, r8
+		extu.w	r9, r0
+
+loc_607C28E:
+		mov.b	@r11, r1
+		mov	r8, r6
+		mov.b	@r12, r4
+		extu.b	r1, r1
+		mov	r1, r2
+		shll2	r2
+		add	r1, r2
+		mov.l	off_607C404, r1	! unk_6087E9A
+		add	r1, r2
+		mov.b	@(r0,r2), r5
+		extu.b	r4, r4
+		jsr	@r10		! sub_607D174
+		extu.b	r5, r5
+		exts.w	r0, r0
+		cmp/eq	#0xFFFFFFFF, r0
+		bt	loc_607C2C0
+		!add	#2, r8
+		!mov.w	@r8, r3
+		add	#1, r8
+		mov.b	@r8, r3
+
+loc_607C2B2:
+		mov	#1, r2
+		mov	r3, r1
+		add	#2, r1
+		!extu.w	r1, r1
+		extu.b	r1, r1
+		cmp/hi	r2, r1
+		bt/s	loc_607C278
+		!extu.w	r3, r2
+		extu.b	r3, r2
+
+loc_607C2C0:
+		add	#1, r9
+		mov.b	@r11, r1
+		extu.w	r9, r2
+		extu.b	r1, r1
+		cmp/hs	r1, r2
+		bf/s	loc_607C258
+		add	#2, r8
+
+loc_607C2CE:
+		mov.l	off_607C410, r0	! sub_60186E8
+		jsr	@r0 ! sub_60186E8
+		nop
+		mov.l	off_607C414, r4	! off_6087EB8
+		mov.l	off_607C418, r0	! sub_6016D68
+		jsr	@r0 ! sub_6016D68
+		nop
+		mov.l	off_607C3E8, r2	! unk_6087E79
+		mov	#7, r1
+		bra	loc_607C3B8
+		mov.b	r1, @r2
+
+loc_607C2E4:
+		mov	#0, r13
+		mov.l	off_607C3D8, r9	! unk_60882C8
+		mov.l	off_607C3DC, r0	! sub_607DB10
+		mov	#0, r5
+		jsr	@r0 ! sub_607DB10
+		mov	r9, r4
+		mov.l	off_607C41C, r1	! unk_6034B7C
+		mov.w	@r1, r3
+		mov.w	word_607C3D0, r2 ! 0x3000
+		mov	r3, r1
+		and	r2, r1
+		tst	r1, r1
+		bt	loc_607C30C
+		mov.l	off_607C420, r8	! unk_6087E7A
+		mov.l	off_607C414, r4	! off_6087EB8
+		mov.l	off_607C424, r0	! sub_6016A38
+		jsr	@r0 ! sub_6016A38
+		mov.b	@r8, r5
+		bra	loc_607C364
+		mov.b	r0, @r8
+
+loc_607C30C:
+		mov.l	off_607C428, r2	! unk_603A494
+		mov.w	@r2, r1
+		and	r3, r1
+		extu.w	r1, r1
+		tst	r1, r1
+		bf/s	loc_607C342
+		mov	r2, r1
+		add	#-2, r1
+		mov.w	@r1, r1
+		and	r3, r1
+		extu.w	r1, r1
+		tst	r1, r1
+		bt	loc_607C364
+		mov.w	word_607C3D2, r4 ! 0x102
+		mov.l	off_607C42C, r1	! sub_6010698
+		jsr	@r1 ! sub_6010698
+		mov	#1, r5
+		mov	r8, r1
+		add	#2, r1
+		mov.b	@r1, r4
+		mov.l	off_607C3F4, r1	! sub_607CCB8
+		jsr	@r1 ! sub_607CCB8
+		extu.b	r4, r4
+		mov.l	off_607C3E8, r2	! unk_6087E79
+		mov	#3, r1
+		bra	loc_607C3B8
+		mov.b	r1, @r2
+
+loc_607C342:
+		mov.w	word_607C3D4, r4 ! 0x101
+		mov.l	off_607C42C, r1	! sub_6010698
+		jsr	@r1 ! sub_6010698
+		mov	#1, r5
+		mov.l	off_607C420, r1	! unk_6087E7A
+		mov.b	@r1, r1
+		mov.l	off_607C3EC, r2	! unk_60882D4
+		mov.b	r1, @r2
+		mov.l	off_607C3E8, r2	! unk_6087E79
+		mov	#9, r1
+		mov.b	r1, @r2
+		mov	r9, r1
+		add	#2, r1
+		mov.b	@r1, r4
+		mov.l	off_607C3F4, r1	! sub_607CCB8
+		jsr	@r1 ! sub_607CCB8
+		extu.b	r4, r4
+
+loc_607C364:
+		mov.l	off_607C420, r1	! unk_6087E7A
+		mov.b	@r1, r2
+		mov.l	off_607C430, r1	! off_6087EC0
+		mov.l	@r1, r3
+		shll2	r2
+		add	#-8, r1
+		mov.l	@r1, r1
+		mov	r2, r0
+		mov.l	@(r0,r3), r5
+		mov.l	off_607C434, r0	! sub_6016860
+		jsr	@r0 ! sub_6016860
+		mov.l	@(4,r1), r4
+		mov.l	off_607C3F0, r1	! unk_60882CA
+		mov	#0, r5
+		mov.b	@r1, r4
+		mov.l	off_607C438, r0	! _DrawDialogText
+		jsr	@r0 ! _DrawDialogText
+		extu.b	r4, r4
+		bra	loc_607C3BA
+		add	#4, r14
+
+loc_607C38C:
+		mov.l	off_607C3D8, r4	! unk_60882C8
+		mov.l	off_607C3DC, r0	! sub_607DB10
+		jsr	@r0 ! sub_607DB10
+		mov	#0, r5
+		mov.l	off_607C3E8, r2	! unk_6087E79
+		mov	#9, r1
+		mov.b	r1, @r2
+
+loc_607C39A:
+		mov	#0, r13
+		mov.l	off_607C3D8, r4	! unk_60882C8
+		mov.l	off_607C3DC, r0	! sub_607DB10
+		jsr	@r0 ! sub_607DB10
+		mov	#2, r5
+		extu.w	r0, r0
+		cmp/eq	#1, r0
+		bf/s	loc_607C3B8
+		mov	#2, r1
+		mov.l	off_607C3E8, r2	! unk_6087E79
+		mov.b	r1, @r2
+		mov.l	off_607C3EC, r1	! unk_60882D4
+		mov.b	@r1, r1
+		mov	#1, r13
+		mov.b	r1, @r9
+
+loc_607C3B8:
+		add	#4, r14
+
+loc_607C3BA:
+		mov	r14, r15
+		lds.l	@r15+, pr
+		mov.l	@r15+, r14
+		extu.w	r13, r0
+		mov.l	@r15+, r13
+		mov.l	@r15+, r12
+		mov.l	@r15+, r11
+		mov.l	@r15+, r10
+		mov.l	@r15+, r9
+		rts
+		mov.l	@r15+, r8
+
+word_607C3D0:	.word 0x3000
+word_607C3D2:	.word 0x102
+word_607C3D4:	.word 0x101
+.align 2
+off_607C3D8:	.long 0x060882C8
+off_607C3DC:	.long 0x0607DB10
+off_607C3E0:	.long 0x06087ECE
+off_607C3E4:	.long 0x0601874C
+off_607C3E8:	.long 0x06087E79
+off_607C3EC:	.long 0x060882D4
+off_607C3F0:	.long 0x060882CA
+off_607C3F4:	.long 0x0607CCB8
+off_607C3F8:	.long 0x06016D38
+off_607C3FC:	.long 0x0607D174
+off_607C400:	.long 0x06087ECC
+off_607C404:	.long 0x06087E9A
+!dword_607C408:	.long 0xF600
+off_607C40C:	.long 0x0607AB14
+off_607C410:	.long 0x060186E8
+off_607C414:	.long 0x06087EB8
+off_607C418:	.long 0x06016D68
+off_607C41C:	.long 0x06034B7C
+off_607C420:	.long 0x06087E7A
+off_607C424:	.long 0x06016A38
+off_607C428:	.long 0x0603A494
+off_607C42C:	.long 0x06010698
+off_607C430:	.long 0x06087EC0
+off_607C434:	.long 0x06016860
+off_607C438:	.long 0x0607D230
 
 .align 2
 sub_607CD64:
