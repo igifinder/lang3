@@ -5,8 +5,6 @@
 extern "C" {
 #endif
 
-int round(float x);
-
 unsigned short WordSwap(unsigned short data);
 unsigned long DoubleWordSwap(unsigned long data);
 
