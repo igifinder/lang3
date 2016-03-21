@@ -31,8 +31,8 @@ lang3v101.xdelta : $(EXE)
 $(EXE) : $(OBJ)
 	vcdbuild disc -b 
 
-IP.BIN: vcdextract.exe $(LANG3_CUE_V2)
-	vcdextract --extract=. $(LANG3_CUE_V2)
+IP.BIN: vcdextract.exe $(LANG3_CUE_V101)
+	vcdextract --extract=. $(LANG3_CUE_V101)
 
 files/A0LANG.BIN: ../satcode/patch.bin
 	satcode-insert $< $(@D)
