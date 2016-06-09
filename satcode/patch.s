@@ -12,6 +12,11 @@
 
     .endm
 
+.equ spr_list_xa, 0x06000C00
+.equ spr_list_ya, 0x06000D60
+.equ spr_list_num, 0x06088518
+.equ spr_list_dispenable, 0x06000EC0
+
 num_files:                 .long 3 ! Number of files to patch
 
 ! File 1
@@ -35,42 +40,52 @@ file1_func3_patch_size:    .long sub_6017748_end-sub_6017748
 
 ! File 2
 filename2:                 padded_string "LANG\\PROG_3.BIN", 260 ! File to patch 
-file2_num_functions:       .long 7 ! Number of patches
+file2_num_functions:       .long 9 ! Number of patches
 ! Patch 1
 file2_func1_offset:        .long 0x29778 ! Offset in File to Patch
 file2_func1_max_size:      .long 0x4C4 ! Function Size
 file2_func1_patch_offset:  .long sub_607BF78 ! New Function code
 file2_func1_patch_size:    .long off_607C438-sub_607BF78+4
 ! Patch 2
-file2_func2_offset:        .long 0x2A564 ! Offset in File to Patch
-file2_func2_max_size:      .long 0x1E4 ! Function Size
-file2_func2_patch_offset:  .long sub_607CD64 ! New Function code
-file2_func2_patch_size:    .long off_607CF44-sub_607CD64+4
+file2_func2_offset:        .long 0x2A4B8 ! Offset in File to Patch
+file2_func2_max_size:      .long 0xAC ! Function Size
+file2_func2_patch_offset:  .long sub_607CCB8 ! New Function code
+file2_func2_patch_size:    .long off_607CD60-sub_607CCB8+4
 ! Patch 3
-file2_func3_offset:        .long 0x2A78C ! Offset in File to Patch
-file2_func3_max_size:      .long 0x138 ! Function Size
-file2_func3_patch_offset:  .long sub_607CF8C ! New Function code
-file2_func3_patch_size:    .long off_607D0C0-sub_607CF8C+4
+file2_func3_offset:        .long 0x2A564 ! Offset in File to Patch
+file2_func3_max_size:      .long 0x1E4 ! Function Size
+file2_func3_patch_offset:  .long sub_607CD64 ! New Function code
+file2_func3_patch_size:    .long off_607CF44-sub_607CD64+4
 ! Patch 4
-file2_func4_offset:        .long 0x2A8C4 ! Offset in File to Patch
-file2_func4_max_size:      .long 0xB0 ! Function Size
-file2_func4_patch_offset:  .long sub_607D0C4 ! New Function code
-file2_func4_patch_size:    .long dword_607D170-sub_607D0C4+4
+file2_func4_offset:        .long 0x2A748 ! Offset in File to Patch
+file2_func4_max_size:      .long 0x44 ! Function Size
+file2_func4_patch_offset:  .long sub_607CF48 ! New Function code
+file2_func4_patch_size:    .long off_607CF88-sub_607CF48+4
 ! Patch 5
-file2_func5_offset:        .long 0x2AA30 ! Offset in File to Patch
-file2_func5_max_size:      .long 0x2C0 ! Function Size
-file2_func5_patch_offset:  .long sub_607D230 ! New Function code
-file2_func5_patch_size:    .long off_607D4E8-sub_607D230+4
+file2_func5_offset:        .long 0x2A78C ! Offset in File to Patch
+file2_func5_max_size:      .long 0x138 ! Function Size
+file2_func5_patch_offset:  .long sub_607CF8C ! New Function code
+file2_func5_patch_size:    .long off_607D0C0-sub_607CF8C+4
 ! Patch 6
-file2_func6_offset:        .long 0x2C710 ! Offset in File to Patch
-file2_func6_max_size:      .long 0x430 ! Function Size
-file2_func6_patch_offset:  .long sub_607EF10 ! New Function code
-file2_func6_patch_size:    .long off_607F33C-sub_607EF10+4
+file2_func6_offset:        .long 0x2A8C4 ! Offset in File to Patch
+file2_func6_max_size:      .long 0xB0 ! Function Size
+file2_func6_patch_offset:  .long sub_607D0C4 ! New Function code
+file2_func6_patch_size:    .long dword_607D170-sub_607D0C4+4
 ! Patch 7
-file2_func7_offset:        .long 0x2CB70 ! Offset in File to Patch
-file2_func7_max_size:      .long 0x148 ! Function Size
-file2_func7_patch_offset:  .long sub_607F370 ! New Function code
-file2_func7_patch_size:    .long off_607F4B4-sub_607F370+4
+file2_func7_offset:        .long 0x2AA30 ! Offset in File to Patch
+file2_func7_max_size:      .long 0x2C0 ! Function Size
+file2_func7_patch_offset:  .long sub_607D230 ! New Function code
+file2_func7_patch_size:    .long off_607D4E8-sub_607D230+4
+! Patch 8
+file2_func8_offset:        .long 0x2C710 ! Offset in File to Patch
+file2_func8_max_size:      .long 0x430 ! Function Size
+file2_func8_patch_offset:  .long sub_607EF10 ! New Function code
+file2_func8_patch_size:    .long off_607F33C-sub_607EF10+4
+! Patch 9
+file2_func9_offset:        .long 0x2CB70 ! Offset in File to Patch
+file2_func9_max_size:      .long 0x148 ! Function Size
+file2_func9_patch_offset:  .long sub_607F370 ! New Function code
+file2_func9_patch_size:    .long off_607F4B4-sub_607F370+4
 
 ! File 3
 filename3:                 padded_string "LANG\\PROG_4.BIN", 260 ! File to patch 
@@ -1159,6 +1174,93 @@ off_607C434:	.long 0x06016860
 off_607C438:	.long 0x0607D230
 
 .align 2
+sub_607CCB8:
+		mov.l	r8, @-r15
+		mov.l	r9, @-r15
+		mov.l	r10, @-r15
+		mov.l	r11, @-r15
+		mov.l	r12, @-r15
+		mov.l	r13, @-r15
+		mov.l	r14, @-r15
+		add	#-4, r15
+		mov	r15, r14
+		mov	r4, r13
+		mov	#0, r7
+		extu.b	r13, r5
+		mov	r5, r1
+		shll2	r1
+		add	r5, r1
+		mov.l	off_607CD48, r2	! spr_list_num
+		add	r2, r1
+		mov.l	r1, @r14
+		mov	#0, r8
+		mov	#0x10, r11
+		mov	#0x55, r10
+		mov.l	off_607CD4C, r9	! spr_list_dispenable
+		extu.b	r7, r1
+
+loc_607CCE6:
+		mov.l	@r14, r0
+		mov	#0, r3
+		mov	r1, r6
+		mov	#0x11, r4
+		mov.b	r8, @(r0,r1)
+
+loc_607CCF0:
+		mul.l	r10, r5
+		extu.b	r3, r0
+		sts	macl, r1
+		mul.l	r4, r6
+		add	#1, r3
+		add	r9, r1
+		sts	macl, r2
+		add	r1, r2
+		extu.b	r3, r1
+		cmp/hi	r11, r1
+		bf/s	loc_607CCF0
+		mov.b	r8, @(r0,r2)
+		add	#1, r7
+		extu.b	r7, r2
+		mov	#4, r1
+		cmp/hi	r1, r2
+		bf/s	loc_607CCE6
+		extu.b	r7, r1
+		extu.b	r13, r1
+		mov	r1, r2
+		shll2	r2
+		mov.l	off_607CD50, r1	! unk_60885D8
+		mov	#0, r12
+		mov	r2, r0		! clear	out text drawing related variables
+		mov.l	r12, @(r0,r1)
+		mov.l	off_607CD54, r1	! dword_60885E0
+		mov.l	r12, @(r0,r1)
+		mov.l	off_607CD58, r1	! dword_60885E8
+		mov.l	r12, @(r0,r1)
+		mov.l	off_607CD5C, r1	! dword_60885F0
+		mov.l	r12, @(r0,r1)
+		mov.l	off_607CD60, r1	! dword_60885F8
+		mov.l	r12, @(r0,r1)
+		add	#4, r14
+		mov	r14, r15
+		mov.l	@r15+, r14
+		mov.l	@r15+, r13
+		mov.l	@r15+, r12
+		mov.l	@r15+, r11
+		mov.l	@r15+, r10
+		mov.l	@r15+, r9
+		rts
+		mov.l	@r15+, r8
+
+.align 2		
+off_607CD48:	.long spr_list_num
+off_607CD4C:	.long spr_list_dispenable
+off_607CD50:	.long 0x060885D8
+off_607CD54:	.long 0x060885E0
+off_607CD58:	.long 0x060885E8
+off_607CD5C:	.long 0x060885F0
+off_607CD60:	.long 0x060885F8
+
+.align 2
 sub_607CD64:
 		mov.l	r8, @-r15
 		mov.l	r9, @-r15
@@ -1427,8 +1529,50 @@ off_607CF30:	.long 0x060885E0
 off_607CF34:	.long 0x060885D8
 off_607CF38:	.long 0x0607D174
 dword_607CF3C:	.long 0xCCCCCCCD
-off_607CF40:	.long 0x06088518
-off_607CF44:	.long 0x06088528
+off_607CF40:	.long spr_list_num
+off_607CF44:	.long spr_list_dispenable
+
+.align 2
+sub_607CF48:
+		mov.l	r8, @-r15
+		mov.l	r9, @-r15
+		mov.l	r14, @-r15
+		mov	r15, r14
+		mov	#0, r7
+		mov	#0x10, r9
+		extu.b	r4, r4
+		mov	#0x55, r8
+		mov.l	off_607CF88, r6	! spr_list_ya
+		mov	#0, r3
+
+loc_607CF5C:
+		mov	#0, r0
+		mul.l	r8, r4
+
+loc_607CF60:
+		mov	r3, r2
+		sts	macl, r1
+		add	r6, r1
+		add	r1, r2
+		mov.b	@(r0,r2), r1
+		sub	r5, r1
+		mov.b	r1, @(r0,r2)
+		add	#1, r0
+		cmp/hi	r9, r0
+		bf/s	loc_607CF60
+		mov	#4, r1
+		add	#1, r7
+		cmp/hi	r1, r7
+		bf/s	loc_607CF5C
+		add	#0x11, r3
+		mov	r14, r15
+		mov.l	@r15+, r14
+		mov.l	@r15+, r9
+		rts
+		mov.l	@r15+, r8
+
+.align 2
+off_607CF88:	.long spr_list_ya
 
 .align 2
 sub_607CF8C:
@@ -1569,15 +1713,15 @@ loc_607CFB8:
 word_607D08E:	.word 0x2A80
 word_607D090:	.word 0x80
 		.align 2
-off_607D094:	.long 0x06088528
+off_607D094:	.long spr_list_dispenable
 off_607D098:	.long 0x0604F8A0
 off_607D09C:	.long 0x060885F8
 off_607D0A0:	.long 0x0607D0C4
 off_607D0A4:	.long 0x025C60000
 off_607D0A8:	.long 0x06088308
-off_607D0AC:	.long 0x060883B8
+off_607D0AC:	.long spr_list_xa
 off_607D0B0:	.long 0x0604EDF8
-off_607D0B4:	.long 0x06088468
+off_607D0B4:	.long spr_list_ya
 off_607D0B8:	.long 0x060885E0
 off_607D0BC:	.long 0x0602E14C
 off_607D0C0:	.long 0x060370D7
@@ -1689,6 +1833,121 @@ off_607D16C:	.long 0x0603E9F0
 dword_607D170:	.long 0x80
 
 .align 2
+sub_607D174:
+		mov.l	r8, @-r15
+		mov.l	r9, @-r15
+		mov.l	r14, @-r15
+		sts.l	pr, @-r15
+		mov	r15, r14
+		mov	r5, r7
+		mov	r7, r9
+		mov	#4, r1
+		cmp/hi	r1, r9		! max rows check?
+		bf/s	loc_607D194
+		mov	r6, r5		! char index
+		add	#-5, r9
+
+loc_607D18C:
+		cmp/hi	r1, r9
+		bt/s	loc_607D18C
+		add	#-5, r9
+		add	#5, r9
+
+loc_607D194:
+		mov.l	off_607D220, r1	! unk_60887C8
+		mov.b	@r1, r1
+		extu.b	r1, r0
+		cmp/eq	#1, r0
+		bt/s	loc_607D1AE
+		mov	#17, r3		! max number of	characters in a	line(16+1), set	this to	33
+		mov.l	off_607D224, r1	! unk_60887C9
+		mov.b	@r1, r1
+		extu.b	r1, r0
+		cmp/eq	#1, r0
+		bt/s	loc_607D1B0
+		extu.b	r4, r2
+		mov	#13, r3		! max number of	characters in a	line(12+1)
+
+loc_607D1AE:
+		extu.b	r4, r2
+
+loc_607D1B0:
+		mov	r2, r1
+		shll2	r1
+		add	r2, r1
+		mov.l	off_607D228, r2	! spr_list_num
+		add	r2, r1
+		mov	r1, r0
+		mov.b	@(r0,r9), r1
+		extu.b	r1, r2
+		cmp/eq	r3, r2
+		bt/s	loc_607D1F0
+		mov	r3, r1
+		add	#-1, r1
+		cmp/eq	r1, r2
+		bf	loc_607D1F4
+		mov.w	@r5, r1		! read text from buffer(convert	to byte	reads)
+		extu.w	r1, r2
+		mov	r2, r0
+		cmp/eq	#5, r0
+		bt/s	loc_607D1F4
+		mov	#5, r1
+		cmp/gt	r1, r2
+		bt/s	loc_607D1E6
+		cmp/eq	#3, r0
+		bt/s	loc_607D1F4
+		cmp/eq	#4, r0
+		bra	loc_607D1EC
+		nop
+
+loc_607D1E6:
+		cmp/eq	#6, r0
+		bt/s	loc_607D1F4
+		cmp/eq	#0x67, r0
+
+loc_607D1EC:
+		bt/s	loc_607D1F6
+		extu.b	r4, r4
+
+loc_607D1F0:
+		bra	loc_607D214
+		mov	#0xFFFFFFFF, r0
+
+loc_607D1F4:
+		extu.b	r4, r4
+
+loc_607D1F6:
+		mov	r4, r8
+		shll2	r8
+		add	r4, r8
+		mov.l	off_607D228, r1	! spr_list_num
+		add	r1, r8
+		mov	r8, r0
+		mov.b	@(r0,r9), r6	! r9 ==	row
+		mov.l	off_607D22C, r1
+		jsr	@r1 ! sub_607CF8C
+		extu.b	r6, r6		! column
+		mov	r8, r0
+		mov.b	@(r0,r9), r1
+		add	#1, r1
+		mov.b	r1, @(r0,r9)
+		mov	#0, r0
+
+loc_607D214:
+		mov	r14, r15
+		lds.l	@r15+, pr
+		mov.l	@r15+, r14
+		mov.l	@r15+, r9
+		rts
+		mov.l	@r15+, r8
+
+.align 2
+off_607D220:	.long 0x060887C8
+off_607D224:	.long 0x060887C9
+off_607D228:	.long spr_list_num
+off_607D22C:	.long 0x0607CF8C
+
+.align 2
 sub_607D230:
 		mov.l	r8, @-r15
 		mov.l	r9, @-r15
@@ -1709,7 +1968,7 @@ sub_607D230:
 		extu.b	r0, r1
 		mov	r1, r6
 		shll2	r6
-		mov.l	off_607D4A0, r1	! unk_60885F0
+		mov.l	off_607D4A0, r1	! dword_60885F0
 		mov	r6, r7
 		add	r1, r7
 		mov.l	@r7, r3
@@ -1717,7 +1976,7 @@ sub_607D230:
 		bt/s	loc_607D300
 		mov	r7, r2
 		add	#3, r2
-		mov.l	off_607D4A4, r4	! unk_60370C8
+		mov.l	off_607D4A4, r4	! dword_60370C8
 		mov	r4, r1
 		mov.b	@r2, r2
 		add	#3, r1
@@ -1729,7 +1988,7 @@ sub_607D230:
 		bt/s	loc_607D2E6
 		mov	r6, r0
 		mov.l	r13, @r7
-		mov.l	off_607D4A8, r1	! unk_60885E0
+		mov.l	off_607D4A8, r1	! dword_60885E0
 		mov.l	@(r0,r1), r6
 		mov	#4, r1
 		cmp/hi	r1, r6
@@ -1747,11 +2006,11 @@ loc_607D294:
 		mov	#3, r13
 		add	r14, r13
 		mov.b	@r13, r13
-		mov.l	off_607D4AC, r2	! unk_6088518
+		mov.l	off_607D4AC, r2	! spr_list_num
 		mov	#0, r7
 		mov	#0x10, r11
 		mov	#0x55, r10
-		mov.l	off_607D4B0, r9	! unk_6088528
+		mov.l	off_607D4B0, r9	! spr_list_dispenable
 		mov	#0x11, r8
 		mov	#0, r4
 		extu.b	r13, r3
@@ -1781,7 +2040,7 @@ loc_607D2B8:
 		mov.b	@r13, r13
 		extu.b	r13, r1
 		shll2	r1
-		mov.l	off_607D4A8, r2	! unk_60885E0
+		mov.l	off_607D4A8, r2	! dword_60885E0
 		add	r2, r1
 		mov.l	@r1, r2
 		add	#1, r2
@@ -1810,10 +2069,10 @@ loc_607D300:
 		cmp/eq	#1, r0
 		bf/s	loc_607D320
 		mov	#3, r13
-		mov.l	off_607D4B8, r1	! unk_60885E8
+		mov.l	off_607D4B8, r1	! dword_60885E8
 		mov	r6, r0
 		mov.l	@(r0,r1), r3
-		mov.l	off_607D4A8, r2	! unk_60885E0
+		mov.l	off_607D4A8, r2	! dword_60885E0
 		mov.l	@(r0,r2), r1
 		cmp/eq	r1, r3
 		bt/s	loc_607D31E
@@ -1828,7 +2087,7 @@ loc_607D31E:
 loc_607D320:
 		add	r14, r13
 		mov.b	@r13, r13
-		mov.l	off_607D4A0, r1	! unk_60885F0
+		mov.l	off_607D4A0, r1	! dword_60885F0
 		extu.b	r13, r9
 		mov	r9, r8
 		shll2	r8
@@ -1886,7 +2145,7 @@ loc_607D38C:
 		mov.l	r13, @(0xC,r14)
 		mov	r8, r2
 		add	r12, r2
-		mov.l	off_607D4AC, r1	! unk_6088518
+		mov.l	off_607D4AC, r1	! spr_list_num
 		mov	r2, r11
 		add	r1, r11
 		mov	#0, r10
@@ -1898,14 +2157,14 @@ loc_607D39C:
 		cmp/hs	r1, r8
 		bt/s	loc_607D458
 		mov	#0x55, r1
-		mov.l	off_607D4CC, r9	! unk_60882E8
+		mov.l	off_607D4CC, r9	! spr_cmd
 		mov	r9, r6
 		add	#8, r6
 
 loc_607D3AE:
 		mul.l	r1, r12
 		sts	macl, r7
-		mov.l	off_607D4B0, r1	! unk_6088528
+		mov.l	off_607D4B0, r1	! spr_list_dispenable
 		add	r7, r1
 		add	r10, r1
 		mov	r1, r0
@@ -1915,22 +2174,22 @@ loc_607D3AE:
 		bt/s	loc_607D44C
 		mov	r9, r1
 		mov	#0, r13
-		mov.w	r13, @r9
+		mov.w	r13, @r9	! CTRL
 		add	#2, r1
 		mov	#0, r0
-		mov.w	r0, @r1
+		mov.w	r0, @r1		! LINK
 		mov	r9, r1
 		add	#4, r1
 		mov.w	word_607D49A, r13 ! 0x480
-		mov.w	r13, @r1
+		mov.w	r13, @r1	! PMOD
 		mov	r9, r1
 		add	#6, r1
 		mov	#0x70, r0
-		mov.w	r0, @r1
+		mov.w	r0, @r1		! COLR
 		mov	r9, r1
 		add	#0x1C, r1
 		mov	#0, r13
-		mov.w	r13, @r1
+		mov.w	r13, @r1	! GRDA
 		mov.w	word_607D49C, r1 ! 0x2A80
 		mov.l	dword_607D4D0, r3 ! 0x60000
 		!mov.w	word_607D49E, r13 ! 0x210
@@ -1938,7 +2197,7 @@ loc_607D3AE:
 		mul.l	r1, r12
 		mov.l	dword_607D4D4, r5 ! 0xC80000
 		mov	r9, r4
-		mov.l	off_607D4D8, r1	! unk_6088308
+		mov.l	off_607D4D8, r1	! spr_list_srca
 		add	r7, r1
 		add	r10, r1
 		mov	r1, r0
@@ -1954,32 +2213,32 @@ loc_607D3AE:
 		shar	r2
 		shar	r2
 		shar	r2
-		mov.w	r2, @r6
+		mov.w	r2, @r6		! SRCA
 		mov	r9, r1
 		add	#0xA, r1
-		mov.w	r13, @r1
+		mov.w	r13, @r1	! SIZE
 		mov	r9, r2
 		add	#0xC, r2
-		mov.l	off_607D4DC, r1	! unk_60883B8
+		mov.l	off_607D4DC, r1	! spr_list_xa
 		add	r7, r1
 		add	r10, r1
 		mov	r1, r0
-		mov.b	@(r0,r8), r1
+		mov.b	@(r0,r8), r1	! This is set at 0x0607D044
 		mov.l	off_607D4E0, r13 ! _slSetSprite
 		extu.b	r1, r1
 		shll2	r1
 		add	r1, r1 ! disabling this does fix the positioning, but the true fix is to modify the code that is fed in from @(r0,r8)
 		add	#0xA, r1
-		mov.w	r1, @r2 ! XA
+		mov.w	r1, @r2		! XA
 		mov	r9, r2
-		mov.l	off_607D4E4, r1	! unk_6088468
+		mov.l	off_607D4E4, r1	! spr_list_ya
 		add	r7, r1
 		add	r10, r1
 		mov	r1, r0
 		mov.b	@(r0,r8), r1
 		add	#0xE, r2
 		extu.b	r1, r1
-		mov.w	r1, @r2 ! YA
+		mov.w	r1, @r2		! YA
 		jsr	@r13 ! _slSetSprite
 		mov.l	r6, @(8,r14)
 		mov.l	@(8,r14), r6
@@ -1994,7 +2253,7 @@ loc_607D44C:
 
 loc_607D458:
 		add	#1, r11
-		add	#0x11, r10
+		add	#0x11, r10	! this probably	has to be changed
 		mov.l	@(0xC,r14), r0
 		mov	#4, r1
 		add	#1, r0
@@ -2035,21 +2294,21 @@ word_607D49E:	.word 0x110
 off_607D4A0:	.long 0x060885F0
 off_607D4A4:	.long 0x060370C8
 off_607D4A8:	.long 0x060885E0
-off_607D4AC:	.long 0x06088518
-off_607D4B0:	.long 0x06088528
+off_607D4AC:	.long spr_list_num
+off_607D4B0:	.long spr_list_dispenable
 off_607D4B4:	.long 0x0607CF48
 off_607D4B8:	.long 0x060885E8
 off_607D4BC:	.long 0x0602DD10
 off_607D4C0:	.long 0x0604EDF8
 off_607D4C4:	.long 0x060352A8
 off_607D4C8:	.long 0x0602DC4C
-off_607D4CC:	.long 0x060882E8
+off_607D4CC:	.long 0x060882E8 ! spr_cmd
 dword_607D4D0:	.long 0x60000
 dword_607D4D4:	.long 0xC80000
-off_607D4D8:	.long 0x06088308
-off_607D4DC:	.long 0x060883B8
+off_607D4D8:	.long 0x06088308 ! spr_list_srca
+off_607D4DC:	.long spr_list_xa
 off_607D4E0:	.long 0x0602E034
-off_607D4E4:	.long 0x06088468
+off_607D4E4:	.long spr_list_ya
 off_607D4E8:	.long 0x060885F8
 
 .align 2
@@ -2828,6 +3087,9 @@ off_607F4A4:	.long 0x06034BE4
 off_607F4A8:	.long 0x0603D570
 off_607F4AC:	.long 0x0603E9F0
 off_607F4B4:	.long 0x0607CD64
+
+.align 2
+_spr_list_num: .byte 0xA, 0xC, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 .align 2
 sub_60919D0:
