@@ -1,7 +1,3 @@
-Langrisser III dumper [0x260 to 0xd60]
-
-Cyber Warrior X
-
 ˆÚ“®æ<$FFFF>
 –‚–@<$FFFF>
 ¡—Ã<$FFFF>

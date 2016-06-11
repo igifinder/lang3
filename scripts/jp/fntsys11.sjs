@@ -1,7 +1,3 @@
-Langrisser III dumper [0x3e7a to 0x5294]
-
-Cyber Warrior X
-
 ディハルト<$FFFF>
 ティアリス<$FFFF>
 リファニー<$FFFF>

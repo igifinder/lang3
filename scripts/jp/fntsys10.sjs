@@ -1,7 +1,3 @@
-Langrisser III dumper [0x32ae to 0x3b80]
-
-Cyber Warrior X
-
 なし<$FFFF>
 メサイヤンソード<$FFFF>
 ロングソード<$FFFF>

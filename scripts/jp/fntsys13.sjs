@@ -1,7 +1,3 @@
-Langrisser III dumper [0x8560 to 0xd774]
-
-Cyber Warrior X
-
 馬と星のロゴがツカにある、ちょっとダ<$FFFF>
 サくて恥ずかしい剣。切れ味が悪いため<$FFFF>
 この剣で敵を倒すと、経験値が２倍はい<$FFFF>

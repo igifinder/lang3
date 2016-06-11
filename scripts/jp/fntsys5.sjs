@@ -1,7 +1,3 @@
-Langrisser III dumper [0x22fe to 0x2af4]
-
-Cyber Warrior X
-
 インファントリー<$FFFF>
 ソルジャー<$FFFF>
 レギオン<$FFFF>
