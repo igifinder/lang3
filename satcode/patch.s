@@ -40,7 +40,7 @@ file1_func3_patch_size:    .long sub_6017748_end-sub_6017748
 
 ! File 2
 filename2:                 padded_string "LANG\\PROG_3.BIN", 260 ! File to patch 
-file2_num_functions:       .long 9 ! Number of patches
+file2_num_functions:       .long 10 ! Number of patches
 ! Patch 1
 file2_func1_offset:        .long 0x29778 ! Offset in File to Patch
 file2_func1_max_size:      .long 0x4C4 ! Function Size
@@ -72,20 +72,25 @@ file2_func6_max_size:      .long 0xB0 ! Function Size
 file2_func6_patch_offset:  .long sub_607D0C4 ! New Function code
 file2_func6_patch_size:    .long dword_607D170-sub_607D0C4+4
 ! Patch 7
-file2_func7_offset:        .long 0x2AA30 ! Offset in File to Patch
-file2_func7_max_size:      .long 0x2C0 ! Function Size
-file2_func7_patch_offset:  .long sub_607D230 ! New Function code
-file2_func7_patch_size:    .long off_607D4E8-sub_607D230+4
+file2_func7_offset:        .long 0x2A974 ! Offset in File to Patch
+file2_func7_max_size:      .long 0xBC ! Function Size
+file2_func7_patch_offset:  .long sub_607D174 ! New Function code
+file2_func7_patch_size:    .long off_607D22C-sub_607D174+4
 ! Patch 8
-file2_func8_offset:        .long 0x2C710 ! Offset in File to Patch
-file2_func8_max_size:      .long 0x430 ! Function Size
-file2_func8_patch_offset:  .long sub_607EF10 ! New Function code
-file2_func8_patch_size:    .long off_607F33C-sub_607EF10+4
+file2_func8_offset:        .long 0x2AA30 ! Offset in File to Patch
+file2_func8_max_size:      .long 0x2C0 ! Function Size
+file2_func8_patch_offset:  .long sub_607D230 ! New Function code
+file2_func8_patch_size:    .long off_607D4E8-sub_607D230+4
 ! Patch 9
-file2_func9_offset:        .long 0x2CB70 ! Offset in File to Patch
-file2_func9_max_size:      .long 0x148 ! Function Size
-file2_func9_patch_offset:  .long sub_607F370 ! New Function code
-file2_func9_patch_size:    .long off_607F4B4-sub_607F370+4
+file2_func9_offset:        .long 0x2C710 ! Offset in File to Patch
+file2_func9_max_size:      .long 0x430 ! Function Size
+file2_func9_patch_offset:  .long sub_607EF10 ! New Function code
+file2_func9_patch_size:    .long off_607F33C-sub_607EF10+4
+! Patch 10
+file2_func10_offset:        .long 0x2CB70 ! Offset in File to Patch
+file2_func10_max_size:      .long 0x148 ! Function Size
+file2_func10_patch_offset:  .long sub_607F370 ! New Function code
+file2_func10_patch_size:    .long off_607F4B4-sub_607F370+4
 
 ! File 3
 filename3:                 padded_string "LANG\\PROG_4.BIN", 260 ! File to patch 
@@ -1186,16 +1191,16 @@ sub_607CCB8:
 		mov	r15, r14
 		mov	r4, r13
 		mov	#0, r7
-		extu.b	r13, r5
-		mov	r5, r1
+		mov	r13, r1
 		shll2	r1
-		add	r5, r1
+		add	r13, r1
 		mov.l	off_607CD48, r2	! spr_list_num
 		add	r2, r1
 		mov.l	r1, @r14
 		mov	#0, r8
-		mov	#0x10, r11
-		mov	#0x55, r10
+		mov	#0x20, r11
+		mov	#0xAA, r10
+		extu.b	r10, r10
 		mov.l	off_607CD4C, r9	! spr_list_dispenable
 		extu.b	r7, r1
 
@@ -1203,7 +1208,7 @@ loc_607CCE6:
 		mov.l	@r14, r0
 		mov	#0, r3
 		mov	r1, r6
-		mov	#0x11, r4
+		mov	#0x22, r4
 		mov.b	r8, @(r0,r1)
 
 loc_607CCF0:
@@ -1271,8 +1276,7 @@ sub_607CD64:
 		sts.l	pr, @-r15
 		mov	r15, r14
 		mov	r5, r6
-		mov	r4, r3
-		extu.b	r3, r11
+		mov	r4, r11
 		mov	r11, r8
 		shll2	r8
 		mov.l	off_607CF1C, r1	! unk_60885F0
@@ -1394,10 +1398,11 @@ loc_607CE38:
 		mov.l	r2, @r9
 		mov.l	dword_607CF3C, r1 ! 0xCCCCCCCD
 		mov	#0, r7
-		mov	#0x10, r10
-		mov	#0x55, r9
+		mov	#0x20, r10
+		mov	#0xAA, r9
+		extu.b	r9, r9
 		dmulu.l	r1, r2
-		mov	#0x11, r5
+		mov	#0x22, r5
 		mov	#0, r3
 		sts	mach, r1
 		mov	r1, r6
@@ -1478,7 +1483,6 @@ loc_607CEC8:
 		add	#5, r6
 
 loc_607CED0:
-		extu.b	r3, r3
 		mov	r3, r1
 		shll2	r1
 		add	r3, r1
@@ -1488,10 +1492,11 @@ loc_607CED0:
 		mov	r1, r0
 		mov.b	r2, @(r0,r6)
 		mov	#0, r7
-		mov	#0x10, r10
-		mov	#0x55, r9
+		mov	#0x20, r10
+		mov	#0xAA, r9
+		extu.b	r9, r9
 		mov.l	off_607CF44, r8	! unk_6088528
-		mov	#0x11, r4
+		mov	#0x22, r4
 		mov	#0, r5
 
 loc_607CEEE:
@@ -1539,9 +1544,9 @@ sub_607CF48:
 		mov.l	r14, @-r15
 		mov	r15, r14
 		mov	#0, r7
-		mov	#0x10, r9
-		extu.b	r4, r4
-		mov	#0x55, r8
+		mov	#0x20, r9 
+		mov	#0xAA, r8
+		extu.b	r8, r8
 		mov.l	off_607CF88, r6	! spr_list_ya
 		mov	#0, r3
 
@@ -1564,7 +1569,7 @@ loc_607CF60:
 		add	#1, r7
 		cmp/hi	r1, r7
 		bf/s	loc_607CF5C
-		add	#0x11, r3
+		add	#0x22, r3
 		mov	r14, r15
 		mov.l	@r15+, r14
 		mov.l	@r15+, r9
@@ -1599,16 +1604,16 @@ loc_607CFAE:
 		bt/s	loc_607CFAE
 		add	#-5, r3
 		add	#5, r3
-		extu.b	r4, r10
 
 loc_607CFB8:
-		mov	#0x55, r1
+		mov	#0xAA, r1
+		extu.b r1, r1
 		mul.l	r1, r10
 		sts	macl, r11
 		mov.l	off_607D094, r1	! unk_6088528
 		mov	r11, r2
 		add	r1, r2
-		mov	#0x11, r1
+		mov	#0x22, r1
 		mul.l	r1, r3
 		mov	r10, r13
 		shll2	r13
@@ -1859,14 +1864,14 @@ loc_607D194:
 		extu.b	r1, r0
 		cmp/eq	#1, r0
 		bt/s	loc_607D1AE
-		mov	#17, r3		! max number of	characters in a	line(16+1), set	this to	33
+		mov	#34, r3		! max number of	characters in a	line 32+2
 		mov.l	off_607D224, r1	! unk_60887C9
 		mov.b	@r1, r1
 		extu.b	r1, r0
 		cmp/eq	#1, r0
 		bt/s	loc_607D1B0
 		extu.b	r4, r2
-		mov	#13, r3		! max number of	characters in a	line(12+1)
+		mov	#26, r3		! max number of	characters in a	line(24+2)
 
 loc_607D1AE:
 		extu.b	r4, r2
@@ -2008,22 +2013,22 @@ loc_607D294:
 		mov.b	@r13, r13
 		mov.l	off_607D4AC, r2	! spr_list_num
 		mov	#0, r7
-		mov	#0x10, r11
-		mov	#0x55, r10
+		mov	#0x20, r11
+		mov	#0xAA, r10
+		extu.b r10, r10
 		mov.l	off_607D4B0, r9	! spr_list_dispenable
-		mov	#0x11, r8
+		mov	#0x22, r8
 		mov	#0, r4
-		extu.b	r13, r3
-		mov	r3, r1
+		mov	r13, r1
 		shll2	r1
-		add	r3, r1
+		add	r13, r1
 		add	r2, r1
 		mov	#0, r2
 		mov	r1, r0
 		mov.b	r2, @(r0,r6)
 
 loc_607D2B8:
-		mul.l	r10, r3
+		mul.l	r10, r13
 		extu.b	r7, r0
 		sts	macl, r1
 		mul.l	r8, r6
@@ -2156,7 +2161,8 @@ loc_607D39C:
 		extu.b	r1, r1
 		cmp/hs	r1, r8
 		bt/s	loc_607D458
-		mov	#0x55, r1
+		mov	#0xAA, r1
+		extu.b	r1, r1
 		mov.l	off_607D4CC, r9	! spr_cmd
 		mov	r9, r6
 		add	#8, r6
@@ -2248,12 +2254,13 @@ loc_607D44C:
 		add	#1, r8
 		extu.b	r1, r1
 		cmp/hs	r1, r8
+		mov	#0xAA, r1
 		bf/s	loc_607D3AE
-		mov	#0x55, r1
+		extu.b	r1, r1
 
 loc_607D458:
 		add	#1, r11
-		add	#0x11, r10	! this probably	has to be changed
+		add	#0x22, r10
 		mov.l	@(0xC,r14), r0
 		mov	#4, r1
 		add	#1, r0
