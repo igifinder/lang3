@@ -21,27 +21,32 @@ num_files:                 .long 4 ! Number of files to patch
 
 ! File 1
 filename1:                  padded_string "A0LANG.BIN", 260 ! File to patch
-file1_num_functions:       .long 4 ! Number of patches
+file1_num_functions:       .long 5 ! Number of patches
 ! Patch 1
-file1_func1_offset:        .long 0x8D94 ! Offset in File to Patch
-file1_func1_max_size:      .long 0x16C ! Function Size
-file1_func1_patch_offset:  .long sub_6016D94 ! New Function code
-file1_func1_patch_size:    .long off_6016EFC-sub_6016D94+4
+file1_func1_offset:        .long 0x8D38 ! Offset in File to Patch
+file1_func1_max_size:      .long 0x30 ! Function Size
+file1_func1_patch_offset:  .long sub_6016D38 ! New Function code
+file1_func1_patch_size:    .long sub_6016D38_end-sub_6016D38+4
 ! Patch 2
-file1_func2_offset:        .long 0x8F00 ! Offset in File to Patch
-file1_func2_max_size:      .long 0xCC ! Function Size
-file1_func2_patch_offset:  .long sub_6016F00 ! New Function code
-file1_func2_patch_size:    .long dword_6016FC8-sub_6016F00+4
+file1_func2_offset:        .long 0x8D94 ! Offset in File to Patch
+file1_func2_max_size:      .long 0x16C ! Function Size
+file1_func2_patch_offset:  .long sub_6016D94 ! New Function code
+file1_func2_patch_size:    .long off_6016EFC-sub_6016D94+4
 ! Patch 3
-file1_func3_offset:        .long 0x9438 ! Offset in File to Patch
-file1_func3_max_size:      .long 0x1C4 ! Function Size
-file1_func3_patch_offset:  .long sub_6017438 ! New Function code
-file1_func3_patch_size:    .long off_60175F8-sub_6017438+4
+file1_func3_offset:        .long 0x8F00 ! Offset in File to Patch
+file1_func3_max_size:      .long 0xCC ! Function Size
+file1_func3_patch_offset:  .long sub_6016F00 ! New Function code
+file1_func3_patch_size:    .long dword_6016FC8-sub_6016F00+4
 ! Patch 4
-file1_func4_offset:        .long 0x9748 ! Offset in File to Patch
-file1_func4_max_size:      .long 0x58 ! Function Size
-file1_func4_patch_offset:  .long sub_6017748 ! New Function code
-file1_func4_patch_size:    .long sub_6017748_end-sub_6017748
+file1_func4_offset:        .long 0x9438 ! Offset in File to Patch
+file1_func4_max_size:      .long 0x1C4 ! Function Size
+file1_func4_patch_offset:  .long sub_6017438 ! New Function code
+file1_func4_patch_size:    .long off_60175F8-sub_6017438+4
+! Patch 5
+file1_func5_offset:        .long 0x9748 ! Offset in File to Patch
+file1_func5_max_size:      .long 0x58 ! Function Size
+file1_func5_patch_offset:  .long sub_6017748 ! New Function code
+file1_func5_patch_size:    .long sub_6017748_end-sub_6017748
 
 ! File 2
 filename2:                 padded_string "LANG\\PROG_3.BIN", 260 ! File to patch 
@@ -119,6 +124,47 @@ file4_func2_offset:        .long 0x5D2C ! Offset in File to Patch
 file4_func2_max_size:      .long 0x140 ! Function Size
 file4_func2_patch_offset:  .long sub_608ED2C ! New Function code
 file4_func2_patch_size:    .long off_608EE68-sub_608ED2C+4
+
+.align 2
+sub_6016D38:
+		!mov.l	r14, @-r15
+		!mov	r15, r14
+		mov	r4, r0
+		mov	#0, r2
+		mov	#1, r6
+		mov	#0xFF, r3
+		extu.b	r3, r3
+
+loc_6016D46:
+		!mov.w	@r0, r1		! change this to mov.b
+		mov.b	@r0, r1
+		!add	#2, r1
+		add	#1, r1
+		!extu.w	r1, r1
+		extu.b	r1, r1
+		cmp/hi	r6, r1
+		bt/s	loc_6016D56
+		add	#1, r2
+		bra	loc_6016D5E
+		!add	#2, r0
+		add	#2, r0
+
+loc_6016D56:
+		cmp/hi	r3, r2
+		bf/s	loc_6016D46
+		!add	#2, r0		! change to add	#1
+		add	#1, r0
+		mov	r4, r0
+
+loc_6016D5E:
+		tst	#1, r0	! make sure pointer is word aligned
+		bt	sub_6016D38_end
+		add	#1, r0
+		!mov	r14, r15
+sub_6016D38_end:
+		rts
+		!mov.l	@r15+, r14
+		nop
 
 .align 2
 sub_6016D94:
@@ -944,14 +990,14 @@ loc_607C06A:
 		mov	#3, r1
 
 loc_607C08A:
-		mov.l	off_607C1B8, r2	! unk_6087ECE
 		bra	loc_607C092
 		mov	#1, r1
 
 loc_607C090:
-		mov.l	off_607C1B8, r2	! unk_6087ECE
 
 loc_607C092:
+		mov.l	off_607C1C0, r2
+		add	#0x3E, r2	! unk_6087ECE
 		mov.b	r1, @r2
 		mov.l	off_607C1BC, r1	! sub_6018724
 		jsr	@r1 ! sub_6018724
@@ -1124,7 +1170,6 @@ off_607C1A8:	.long 0x060882C8
 off_607C1AC:	.long 0x0607DB10
 off_607C1B0:	.long 0x060882D4
 !dword_607C1B4:	.long 0xFFFD
-off_607C1B8:	.long 0x06087ECE
 off_607C1BC:	.long 0x06018724
 off_607C1C0:	.long 0x06087E90
 off_607C1C4:	.long 0x06087EBD
@@ -1144,7 +1189,8 @@ loc_607C1E4:
 		jsr	@r0 ! sub_607DB10
 		mov	r8, r4
 		add	#2, r8
-		mov.l	off_607C3E0, r1	! unk_6087ECE
+		mov.l	off_607C3E8, r1
+		add #0x55, r1 ! unk_6087ECE
 		mov.l	off_607C3E4, r0	! sub_601874C
 		mov.b	@r8, r4
 		mov	r14, r5
@@ -1275,6 +1321,11 @@ loc_607C2B2:
 		extu.b	r3, r2
 
 loc_607C2C0:
+		mov r8, r0 ! make sure r8 is word aligned
+		tst #1, r0
+		bt end_walign_check
+		add #1, r8
+end_walign_check:
 		add	#1, r9
 		mov.b	@r11, r1
 		extu.w	r9, r2
@@ -1436,7 +1487,6 @@ word_607C3D4:	.word 0x101
 .align 2
 off_607C3D8:	.long 0x060882C8
 off_607C3DC:	.long 0x0607DB10
-off_607C3E0:	.long 0x06087ECE
 off_607C3E4:	.long 0x0601874C
 off_607C3E8:	.long 0x06087E79
 off_607C3EC:	.long 0x060882D4
@@ -1446,7 +1496,6 @@ off_607C3F8:	.long 0x06016D38
 off_607C3FC:	.long 0x0607D174
 off_607C400:	.long 0x06087ECC
 off_607C404:	.long 0x06087E9A
-!dword_607C408:	.long 0xF600
 off_607C40C:	.long 0x0607AB14
 off_607C410:	.long 0x060186E8
 off_607C414:	.long 0x06087EB8
@@ -4465,7 +4514,6 @@ loc_608EC3C:
 		bt/s	loc_608EC72
 		mov	r6, r1
 		mov.l	off_608ED1C, r2	! off_6092AE4
-		!add	r1, r1
 		add	r1, r2
 
 loc_608EC62:
@@ -4480,7 +4528,6 @@ loc_608EC62:
 
 loc_608EC72:
 		mov	r6, r2
-		!add	r2, r2
 		mov.l	off_608ED1C, r1	! off_6092AE4
 		mov	#0x20, r10
 		mov	r2, r0
@@ -4491,7 +4538,6 @@ loc_608EC72:
 		bf/s	loc_608EC94
 		add	#1, r6
 		mov	r6, r2
-		!add	r2, r2
 		mov	#'?', r10		! '?' character
 		mov	r2, r0
 		mov.b	r10, @(r0,r1)	! add '?' character
@@ -4514,7 +4560,6 @@ loc_608ECA4:
 		bt/s	loc_608ECB8
 		mov	#0xFFFFFFFF, r10
 		mov	r6, r0
-		!add	r0, r0
 		mov.l	off_608ED1C, r2	! off_6092AE4
 		mov	r3, r1
 		add	#'0', r1
@@ -4528,7 +4573,6 @@ loc_608ECB8:
 		add	r1, r1
 		sub	r1, r4
 		mov	r6, r3
-		!add	r3, r3
 		mov.l	off_608ED1C, r2	! off_6092AE4
 		mov	r4, r1
 		add	#'0', r1
@@ -4536,7 +4580,6 @@ loc_608ECB8:
 		mov.b	r1, @(r0,r2)	! ones digit
 		add	#1, r6
 		mov	r6, r1
-		!add	r1, r1
 		mov	r1, r0
 		mov.b	r10, @(r0,r2)	! insert 0xFF
 		add	#1, r0

@@ -128,7 +128,7 @@ patch_struct *load_patch(char *filename)
 
 			if (patch_data->patch_size > patch_data->max_size)
 			{
-				printf("Error file %s patch %d is too large\n", patch->file[i].name, j+1);
+				printf("Error file %s patch %d is too large. %d bytes, needs to be <= %d\n", patch->file[i].name, j+1, patch_data->patch_size, patch_data->max_size);
 				goto error;
 			}
 		}
