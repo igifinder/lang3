@@ -1,4 +1,4 @@
-/*  Copyright 2013 Theo Berkau
+/*  Copyright 2013, 2016 Theo Berkau
 
     This file is part of SATCODE-INSERT.
 
@@ -22,6 +22,8 @@
 #include <malloc.h>
 #include <io.h>
 #include <string.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #include "../shared/util.h"
 
 typedef struct
@@ -167,10 +169,11 @@ int main(int argc, char *argv[])
    char *input_filename;
    char *output_dir;
    int i,j;
-   FILE *fp;
+   FILE *fp=NULL;
    patch_struct *patch=NULL;
    int size;
    unsigned char *data=NULL;
+   struct stat info;
 
    if (argc != 3)
    {
@@ -184,6 +187,13 @@ int main(int argc, char *argv[])
 	// Load up patch
 	if ((patch = load_patch(input_filename)) == NULL)
 		exit(1);
+
+   stat( output_dir, &info );
+   if (!(info.st_mode & S_IFDIR))
+   {
+      printf ("Second argument needs to be a directory\n");
+      goto error;
+   }
 
 	for (i = 0; i < patch->num_files; i++)
 	{
@@ -226,7 +236,8 @@ int main(int argc, char *argv[])
    printf("done\n");
 
 error:
-   free_patch(patch);
+   if (patch)
+      free_patch(patch);
 
    if (data)
       free(data);
