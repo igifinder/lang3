@@ -1,6 +1,6 @@
 @Echo off
 echo Inserting Program patches
-satcode-insert ..\satcode\patch.bin .\files
+satcode-insert patch.bin .\files
 echo Inserting translated menu's, etc.
 encode -f ..\scripts\jp\lang3.tbl files\LANG\FNT_SYS.BIN ..\scripts\en\fntsys%%dE.txt files\LANG\FNT_SYS.BIN
 echo Inserting tranlsated scenario script
