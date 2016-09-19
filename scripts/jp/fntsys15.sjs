@@ -1,7 +1,3 @@
-Langrisser III dumper [0xda36 to 0xdddf]
-
-Cyber Warrior X
-
 ¬‚³‚È‰Š‚ğ”ò‚Î‚·^•”‘à<$FFFF>
 ‘å”š”­‚ğ‹N‚±‚·^”ÍˆÍ<$FFFF>
 ‹­‚¢—â‹C‚Å“€‚ç‚¹‚é^•”‘à<$FFFF>

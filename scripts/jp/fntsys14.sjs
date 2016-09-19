@@ -1,7 +1,3 @@
-Langrisser III dumper [0xd79e to 0xd9e4]
-
-Cyber Warrior X
-
 アイウエオ<$FFFF>
 カキクケコ<$FFFF>
 サシスセソ<$FFFF>

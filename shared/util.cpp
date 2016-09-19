@@ -3,18 +3,6 @@
 #include <stdio.h>
 #include "util.h"
 
-int round(float x)
-{
-   if (x - ((int)x) <  0.5)
-   {
-      return((int)x);
-   }
-   else
-   {
-      return ((int)(x+1));
-   }
-}
-
 //////////////////////////////////////////////////////////////////////////////
 
 unsigned short WordSwap(unsigned short data)

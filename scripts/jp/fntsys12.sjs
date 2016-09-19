@@ -1,7 +1,3 @@
-Langrisser III dumper [0x554e to 0x7fe8]
-
-Cyber Warrior X
-
 ソルジャーの攻撃能力を強化した歩兵。<$FFFF>
 軽装なので、移動力も上がっている。<$FFFF>
 槍兵に対して有利だが、騎馬には不利で<$FFFF>

@@ -42,3 +42,10 @@ buildcd/yabause-0.9.14-win64/bup.bin
 /Debug
 /Release
 ipch
+/dump/Release
+/encode/Release
+/satcode/Release
+/scrscendump/Release
+/scrsceninsert/Release
+/buildcd/*.CCD
+/buildcd/Release

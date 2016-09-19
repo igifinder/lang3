@@ -1,7 +1,3 @@
-Langrisser III dumper [0x3092 to 0x314c]
-
-Cyber Warrior X
-
 “‘•”õ<$FFFF>
 Œ•‘•”õ<$FFFF>
 ‘„‘•”õ<$FFFF>

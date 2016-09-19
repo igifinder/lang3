@@ -1,7 +1,3 @@
-Langrisser III dumper [0xdb0 to 0x11ac]
-
-Cyber Warrior X
-
 　本体ＲＡＭの<$FFFF>
 　カートリッジＲＡＭの<$FFFF>
 　準備が整っていません！<$FFFF>
